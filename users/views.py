@@ -82,7 +82,6 @@ def view_user_profile(request, username):
         user.progress_value = user.profile.total_hours() / BRONZE_HOURS
         user.tier = "ROOKIE"
         user.word_right = "BRONZE"
-        user.tier_img = ""
         user.color = "bronze"
     elif user.profile.total_hours() < SILVER_HOURS:
         user.hours_difference = SILVER_HOURS - user.profile.total_hours()
@@ -99,12 +98,8 @@ def view_user_profile(request, username):
         user.word_right = "GOLD"
         user.color = "gold"
     else:
-        user.hours_difference = 0
-        user.progress_value = 100
         user.tier_img = "Gold-Commitment"
         user.tier = "GOLD"
-        user.word_right = "GOLD"
-        user.color = "gold"
 
     return render(request, "users/profile.html", { "user": user, "BRONZE_HOURS": BRONZE_HOURS, "SILVER_HOURS": SILVER_HOURS, "GOLD_HOURS": GOLD_HOURS })
 

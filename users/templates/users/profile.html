@@ -129,8 +129,10 @@
             {% endif %}
             <div>
               <h2>Current Progress</h2>
+              {% if user.tier != "ROOKIE" %}
                   <div><img src="/static/images/{{ user.tier_img }}.png" style="margin-left: 0; margin-right: 20px; height:200px"></div>
-                  <div><h3>{{ user.tier }} Tier Volunteer</h3><h5 style="margin: 0">{{ user.profile.total_hours }} hrs logged</h5><progress class="" max="100" value="{{ user.progress_value }}" style="height: 15px; width: 500px; display: block;"></progress><h5>{{ user.hours_difference }} hrs until PLATINUM</h5></div>
+              {% endif %}
+                  <div><h3>{{ user.tier }} Tier Volunteer</h3><h5 style="margin: 0">{{ user.profile.total_hours }} hrs logged</h5>{% if user.tier != "GOLD" %}<progress class="" max="100" value="{{ user.progress_value }}" style="height: 15px; width: 500px; display: block;"></progress><h5>{{ user.hours_difference }} hrs until {{ user.word_right }}</h5>{% endif %}</div>
             </div>
 						<div>
               <h2>Awards</h2>
