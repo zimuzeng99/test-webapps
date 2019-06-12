@@ -1,0 +1,69 @@
+<!doctype html>
+<html>
+  <head>
+    <title>{{ project.title }}</title>
+    <link href="https://fonts.googleapis.com/css?family=Karla&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.rawgit.com/openlayers/openlayers.github.io/master/en/v5.3.0/css/ol.css" type="text/css">
+    <link rel="stylesheet" href="/static/home.css">
+    <script src="https://cdn.rawgit.com/openlayers/openlayers.github.io/master/en/v5.3.0/build/ol.js"></script>
+  </head>
+  <body>
+    <h1>{{ project.title }}</h1>
+    <p><em>{{ project.type }}</em></p>
+    <p>{{ project.description }}</p>
+    <p>Start date: {{ project.start_date }}</p>
+    <p>End date: {{ project.end_date }}</p>
+    <p>Estimated hours of work: {{ project.duration }} hrs</p>
+    <p>{{ project.num_volunteers }} volunteers have joined this project</p>
+    <form action="/projects/signup/" method="POST">
+      {% csrf_token %}
+      <input type="hidden" name="projectid" value="{{ project.id }}">
+      <input type="submit" value="Sign up">
+    </form>
+    <form action="/projects/signupgroup/" method="POST">
+      <h2>Sign up to this project as a group</h2>
+      <p>All the groups that you are admin of are shown below. You can sign up all the members of these groups to this project with just one click.</p>
+      {% csrf_token %}
+      <input type="hidden" name="projectid" value="{{ project.id }}">
+      {% for group in groups %}
+      <input type="checkbox" name="groups" value="{{ group.name }}"> {{ group.name }}
+      {% endfor %}
+      <input type="submit" value="Signup selected groups">
+    </form>
+    <div id="map" class="map"></div>
+    <script type="text/javascript">
+      var map = new ol.Map({
+        target: 'map',
+        layers: [
+          new ol.layer.Tile({
+            source: new ol.source.OSM()
+          })
+        ],
+        view: new ol.View({
+          center: ol.proj.fromLonLat([{{ project.longitude }}, {{ project.latitude }}]),
+          zoom: 15
+        })
+      });
+    </script>
+    <p><a href="/">Back to homepage</a></p>
+    {% if project.organiser.username == request.user.username and not project.completed %}
+    <p>As the organiser of this project, you can mark this project as completed, and choose how many hours to certify each volunteer who participated.</p>
+    <input type="submit" form="certify">
+    {% endif %}
+    {% if project.num_volunteers > 0 %}
+    <h2>Volunteers who have already signed up</h2>
+    <form id="certify" method="POST" action="/projects/certify/">
+      {% csrf_token %}
+      <input type="hidden" name="projectid" value="{{ project.id }}">
+      <ul>
+        {% for user in project.volunteers %}
+        <li><a href="{% url 'view_user_profile' username=user.username %}">{{ user.get_full_name }}</a>
+          {% if project.organiser.username == request.user.username and not project.completed %}
+          <input type="number" value="{{ project.duration }}" name="{{ user.username }}"> hrs
+          {% endif %}</li>
+        {% endfor %}
+      </ul>
+    </form>
+    {% endif %}
+  </body>
+</html>

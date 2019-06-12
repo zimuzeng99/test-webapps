@@ -1,0 +1,174 @@
+body {
+    margin: 5%;
+    font-family: 'Karla', sans-serif;
+}
+
+ul {
+    list-style: none;
+}
+
+#projects, #panel {
+    float: left;
+}
+
+#projects {
+    width: 75%;
+}
+
+#panel {
+    width: 25%;
+}
+
+@media only screen and (max-width: 1500px) {
+    #projects {
+        width: 60%;
+    }
+    #panel {
+        width: 40%;
+    }
+}
+
+@media only screen and (max-width: 900px) {
+    #projects {
+        width: 50%;
+    }
+    #panel {
+        width: 50%;
+    }
+}
+
+@media only screen and (max-width: 700px) {
+    #projects, #panel {
+        float: none;
+    }
+
+    #projects {
+        width: 100%;
+    }
+    #panel {
+        margin-left: 10%;
+        width: 80%;
+    }
+}
+
+@media only screen and (max-width: 500px) {
+    #panel {
+        margin-left: 0%;
+        width: 100%;
+    }
+    #findButton, #createButton {
+        height: 60px;
+    }
+}
+
+form {
+    width: 100%;
+}
+
+form input:not([type='checkbox']), textarea, button {
+    box-sizing: border-box;
+    -webkit-appearance: none;
+    border-radius: 0;
+    height: 40px;
+    margin-top: 25px;
+    margin-bottom: 25px;
+    font-size: 20px;
+    border-color: rgb(100, 100, 100);
+    border-width: 2px;
+    border-style: solid;
+    outline: none;
+    width: 100%;
+}
+
+form input, textarea {
+    padding-left: 10px;
+}
+
+textarea {
+      resize: vertical;
+      height: 100px;
+      min-height: 100px;
+}
+form input:focus, textarea:focus {
+    border-color: rgb(0, 0, 0);
+}
+form input[type="submit"], button {
+    height: 40px;
+    background-color: rgb(75, 75, 75);
+    color: rgb(255, 255, 255);
+    border: none;
+}
+form input[type="submit"]:hover, button:hover {
+    cursor: pointer;
+}
+form input[type="submit"]:active, button:active {
+    background-color: rgb(0, 0, 0);
+}
+#create {
+    display: none;
+}
+#findButton, #createButton {
+    width: 45%;
+    float: left;
+}
+#findButton {
+    margin-right: 10%;
+}
+.map {
+    height: 400px;
+    width: 100%;
+}
+
+#tier {
+    border: 2px solid rgb(184, 187, 193);
+    border-radius: 10px;
+    padding: 10px;
+    width: 20%;
+}
+
+#tier span {
+    font-size: 30px;
+    color: rgb(184, 187, 193);
+}
+
+progress[value] {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    height: 25px;
+    width: 250px;
+}
+
+progress[value]::-webkit-progress-bar {
+    background-color: rgb(255, 255, 255);
+    border: 2px solid rgb(0, 0, 0);
+}
+
+progress[value]::-moz-progress-bar {
+    background-color: rgb(255, 255, 255);
+    border: 2px solid rgb(0, 0, 0);
+}
+
+progress.bronze[value]::-moz-progress-bar {
+    background-color: #cd7f32;
+}
+
+progress.bronze[value]::-webkit-progress-value {
+    background-color: #cd7f32;
+}
+
+progress.silver[value]::-moz-progress-bar {
+    background-color: #C0C0C0;
+}
+
+progress.silver[value]::-webkit-progress-value {
+    background-color: #C0C0C0;
+}
+
+progress.gold[value]::-moz-progress-bar {
+    background-color: #FFD700;
+}
+
+progress.gold[value]::-webkit-progress-value {
+    background-color: #FFD700;
+}

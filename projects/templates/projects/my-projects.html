@@ -1,0 +1,42 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Volunteer Find</title>
+    <meta name="viewport" content="width=device-width">
+    <link href="https://fonts.googleapis.com/css?family=Karla&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/home.css">
+  </head>
+  <body>
+    <h1>Projects that I'm volunteering in</h1>
+    <div>
+      {% for project in volunteer_projects %}
+      <div>
+        <h3><a href="{% url 'view_project' project_id=project.id %}">{{ project.title }}</a></h3>
+        <p><em>{{ project.type }}</em></p>
+        <p>{{ project.description }}</p>
+        <p>Distance from your location: {{ project.distance }} km</p>
+        <p>Start date: {{ project.start_date }}</p>
+        <p>End date: {{ project.end_date }}</p>
+        <p>Estimated hours of work: {{ project.duration }} hrs</p>
+      </div>
+      {% endfor %}
+    </div>
+
+    <h1>Projects that I'm organising</h1>
+    <div>
+      {% for project in organise_projects %}
+      <div>
+        <h3><a href="{% url 'view_project' project_id=project.id %}">{{ project.title }}</a></h3>
+        <p><em>{{ project.type }}</em></p>
+        <p>{{ project.description }}</p>
+        <p>Distance from your location: {{ project.distance }} km</p>
+        <p>Start date: {{ project.start_date }}</p>
+        <p>End date: {{ project.end_date }}</p>
+        <p>Estimated hours of work: {{ project.duration }} hrs</p>
+      </div>
+      {% endfor %}
+    </div>
+
+    <p><a href="/">Back to homepage</a></p>
+  </body>
+</html>

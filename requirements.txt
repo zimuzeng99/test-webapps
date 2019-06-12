@@ -1,0 +1,6 @@
+Django==2.1.5
+gunicorn
+Pillow
+whitenoise==3.2
+psycopg2
+geopy

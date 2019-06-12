@@ -1,0 +1,27 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Create a new account</title>
+    <link href="https://fonts.googleapis.com/css?family=Karla&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/home.css">
+  </head>
+  <body>
+    <h1>Create a new account</h1>
+    <form action="/users/signup/" method="POST">
+      {% csrf_token %}
+      {{ form }}<br>
+      First name: <input type="text" name="firstname"><br>
+      Last name: <input type="text" name="lastname"><br>
+      Type of user:
+      <select name="type">
+        <option value="individual">Individual</option>
+        <option value="organisation">Organisation</option>
+      </select><br>
+      <textarea name="bio" placeholder="Enter a short bio here"></textarea><br>
+      Email: <input type="email" name="email"><br>
+      Phone number: <input type="text" name="phone"><br>
+      <input type="submit" value="Signup">
+    </form>
+    <p><a href="/">Back to homepage</a></p>
+  </body>
+</html>

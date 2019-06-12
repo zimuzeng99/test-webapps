@@ -1,0 +1,34 @@
+<!doctype html>
+<html>
+  <head>
+    <title>{{ group.name }}</title>
+    <meta name="viewport" content="width=device-width">
+    <link href="https://fonts.googleapis.com/css?family=Karla&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/home.css">
+  </head>
+  <body>
+    <h1>{{ group.name }}</h1>
+    <p>{{ group.description }}</p>
+    <p>Admin: <a href="{% url 'view_user_profile' username=group.admin.username %}">{{ group.admin.get_full_name }}</a></p>
+    <p>Date created: {{ group.date_created }}</p>
+
+    <p><a href="/">Back to homepage</a></p>
+    {% if request.user.username == group.admin.username %}
+    <form action="/users/groups/addmember/" method="POST">
+      <h2>Add new members</h2>
+      {% csrf_token %}
+      <input type="text" name="username">
+      <input type="hidden" name="groupid" value="{{ group.id }}">
+      <input type="submit" value="Add user to this group">
+    </form>
+    {% endif %}
+    <h2>Members</h2>
+    <p>{{ group.num_members }} members in total</p>
+    <ul>
+      {% for member in group.members %}
+        <li><a href="{% url 'view_user_profile' username=member.username %}">{{ member.get_full_name }}</a></li>
+      {% endfor %}
+    </ul>
+    <p></p>
+  </body>
+</html>
