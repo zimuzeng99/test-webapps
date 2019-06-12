@@ -96,17 +96,17 @@
 	   	<nav id="main-nav-wrap">
 				<ul class="main-navigation sf-menu">
 					<li><a href="/" title="">Home</a></li>
-          {% if request.user.is_authenticated %}
-          <a href="/users/logout/" title="">Logout</a>
-          {% else %}
-          <a href="/users/login/" title="">Login</a>
-          <a href="/users/signup/" title="">Signup</a>
-          {% endif %}
           <li><a href="{% url 'view_user_profile' username=request.user.username %}">My Profile</a></li>
           <li><a href="/users/groups/create/">Create Group</a></li>
           <li><a href="{% url 'my_groups' username=request.user.username %}">My Groups</a></li>
           <li><a href="/projects/myprojects/">My Projects</a></li>
           <li><a href="/users/leaderboard/">Leaderboard</a></li>
+          {% if request.user.is_authenticated %}
+          <li><a href="/users/logout/" title="">Logout</a></li>
+          {% else %}
+          <li><a href="/users/login/" title="">Login</a></li>
+          <li><a href="/users/signup/" title="">Signup</a></li>
+          {% endif %}
 				</ul>
 			</nav> <!-- end main-nav-wrap -->
 
