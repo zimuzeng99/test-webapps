@@ -117,6 +117,7 @@
 
 					<div class="primary-content">
 
+
 						<h1 class="entry-title add-bottom">{{ user.get_full_name }}</h1>
 
 						<p class="lead">{{ user.description }}</p>
@@ -173,10 +174,20 @@
 						<div>
               <h2>Awards</h2>
               {% for level, type in user.awards %}
-							<div>
-								<h3>{{ level }} {{ type }} Award</h3>
-								<p><img src="/static/{{ level }}-{{ type }}.gif" width="200px" height="200px"></p>
-							</div>
+              <article class="brick entry format-standard animate-this">
+
+                 <div class="entry-text">
+                 	<div class="entry-header">
+
+                 		<h3 class="entry-title">{{ level }} {{ type }} Award</h3>
+
+                 	</div>
+  						<div class="entry-excerpt">
+                <img src="/static/{{ level }}-{{ type }}.gif" width="200px" height="200px">
+  						</div>
+                 </div>
+
+          		</article> <!-- end article -->
               {% endfor %}
 						</div>
 
