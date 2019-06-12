@@ -35,6 +35,31 @@
 
   <style>
   * { font-family: 'Karla', sans-serif !important; }
+  #progressbar {
+    progress.bronze[value]::-moz-progress-bar {
+        background-color: #cd7f32;
+    }
+
+    progress.bronze[value]::-webkit-progress-value {
+        background-color: #cd7f32;
+    }
+
+    progress.silver[value]::-moz-progress-bar {
+        background-color: #C0C0C0;
+    }
+
+    progress.silver[value]::-webkit-progress-value {
+        background-color: #C0C0C0;
+    }
+
+    progress.gold[value]::-moz-progress-bar {
+        background-color: #FFD700;
+    }
+
+    progress.gold[value]::-webkit-progress-value {
+        background-color: #FFD700;
+    }
+  }
   </style>
 
 </head>
@@ -132,7 +157,7 @@
               {% if user.tier != "ROOKIE" %}
                   <div><img src="/static/images/{{ user.tier_img }}.png" style="margin-left: 0; margin-right: 20px; height:200px"></div>
               {% endif %}
-                  <div><h3>{{ user.tier }} Tier Volunteer</h3><h5 style="margin: 0">{{ user.profile.total_hours }} hrs logged</h5>{% if user.tier != "GOLD" %}<progress class="" max="100" value="{{ user.progress_value }}" style="height: 15px; width: 500px; display: block;"></progress><h5 style="margin: 0">{{ user.hours_difference }} hrs until {{ user.word_right }}</h5>{% endif %}</div>
+                  <div><h3>{{ user.tier }} Tier Volunteer</h3><h5 style="margin: 0">{{ user.profile.total_hours }} hrs logged</h5>{% if user.tier != "GOLD" %}<progress id="progressbar" class="{{ user.color }}" max="100" value="{{ user.progress_value }}" style="height: 15px; width: 500px; display: block;"></progress><h5 style="margin: 0">{{ user.hours_difference }} hrs until {{ user.word_right }}</h5>{% endif %}</div>
             </div>
 						<div style="margin-top: 12px">
               <h2>Awards</h2>
