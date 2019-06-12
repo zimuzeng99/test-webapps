@@ -155,15 +155,9 @@
             {% endif %}
 
             <h2>Progress until next tier:</h2>
-            Only <b>{{ user.hours_difference }} hours</b> away from <b>{{ user.word_right }} Tier</b>.<br><br>
-            {{ user.word_left }} <progress class="{{ user.color }}" max="100" value="{{ user.progress_value }}"></progress> {{ user.word_right }}
+            <p>Only <b>{{ user.hours_difference }} hours</b> away from <b>{{ user.word_right }} Tier</b>.<br><br>
+            {{ user.word_left }} <progress class="{{ user.color }}" max="100" value="{{ user.progress_value }}"></progress> {{ user.word_right }}</p>
 
-            <h2>Awards</h2>
-            <ul>
-            {% for level, type in user.awards %}
-              <li><img src="/static/{{ level }}-{{ type }}.gif" width="200px" height="200px">{{ level }} {{ type }} Award</li>
-            {% endfor %}
-            </ul>
             {% if request.user.username == user.username %}
             <p><a href="/users/edit-profile"></a></p>
             {% endif %}
@@ -177,26 +171,13 @@
             </ul>
 
 						<div class="row block-1-2 block-tab-full">
+              <h2>Awards</h2>
+              {% for level, type in user.awards %}
 							<div class="bgrid">
-								<h3>Who.</h3>
-								<p>Lorem ipsum Nisi amet fugiat eiusmod et aliqua ad qui ut nisi Ut aute anim mollit fugiat qui sit ex occaecat et eu mollit nisi pariatur fugiat deserunt dolor veniam reprehenderit aliquip magna nisi consequat aliqua veniam in aute ullamco Duis laborum ad non pariatur sit.</p>
+								<h3>{{ level }} {{ type }} Award</h3>
+								<p><img src="/static/{{ level }}-{{ type }}.gif" width="200px" height="200px"></p>
 							</div>
-
-							<div class="bgrid">
-								<h3>When.</h3>
-								<p>Lorem ipsum Nisi amet fugiat eiusmod et aliqua ad qui ut nisi Ut aute anim mollit fugiat qui sit ex occaecat et eu mollit nisi pariatur fugiat deserunt dolor veniam reprehenderit aliquip magna nisi consequat aliqua veniam in aute ullamco Duis laborum ad non pariatur sit.</p>
-							</div>
-
-							<div class="bgrid">
-								<h3>What.</h3>
-								<p>Lorem ipsum Nisi amet fugiat eiusmod et aliqua ad qui ut nisi Ut aute anim mollit fugiat qui sit ex occaecat et eu mollit nisi pariatur fugiat deserunt dolor veniam reprehenderit aliquip magna nisi consequat aliqua veniam in aute ullamco Duis laborum ad non pariatur sit.</p>
-							</div>
-
-							<div class="bgrid">
-								<h3>How.</h3>
-								<p>Lorem ipsum Nisi amet fugiat eiusmod et aliqua ad qui ut nisi Ut aute anim mollit fugiat qui sit ex occaecat et eu mollit nisi pariatur fugiat deserunt dolor veniam reprehenderit aliquip magna nisi consequat aliqua veniam in aute ullamco Duis laborum ad non pariatur sit.</p>
-							</div>
-
+              {% endfor %}
 						</div>
 
 					</div>
