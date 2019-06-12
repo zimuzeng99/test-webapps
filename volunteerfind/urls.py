@@ -7,5 +7,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     url(r'^$', projects_views.homepage),
     url(r'^projects/', include('projects.urls')),
-    url(r'^users/', include('users.urls'))
+    url(r'^users/', include('users.urls')),
+    url(r'^about/', "projects/about.html")
 ]
