@@ -128,7 +128,7 @@
 						<h1 class="entry-title add-bottom">{{ user.get_full_name }}</h1>
             <h6>Biography</h6>
 						<p>{{ user.profile.bio }}</p>
-            {% if user.email %}
+            {% if user.profile.email %}
             <h6>Email</h6>
 						<p>{{ user.profile.email }}</p>
             {% endif %}
