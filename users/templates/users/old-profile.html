@@ -1,0 +1,67 @@
+<!doctype html>
+<html>
+  <head>
+    <title>{{ user.username }}</title>
+    <meta name="viewport" content="width=device-width">
+    <link href="https://fonts.googleapis.com/css?family=Karla&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/home.css">
+  </head>
+  <body>
+    <h1>{{ user.get_full_name }}</h1>
+    <p>{{ user.profile.bio }}</p>
+    {% if user.profile.email %}
+    <p>Email: {{ user.profile.email }}</p>
+    {% endif %}
+    {% if user.profile.phone %}
+    <p>Phone number: {{ user.profile.phone }}</p>
+    {% endif %}
+
+    <h2>Current Tier:</h2>
+    {% if user.profile.total_hours <= BRONZE_HOURS %}
+    <div id="tier" style="border-color: black">
+      <span style="color: black">ROOKIE Tier</span><br>
+      Over <b>{{ user.profile.total_hours }} hours</b> logged so far!
+    </div>
+    {% endif %}
+    {% if user.profile.total_hours <= SILVER_HOURS and user.profile.total_hours > BRONZE_HOURS %}
+    <div id="tier" style="border-color: #cd7f32">
+      <span style="color: #cd7f32">BRONZE Tier</span><br>
+      Over <b>{{ user.profile.total_hours }} hours</b> logged so far!
+    </div>
+    {% endif %}
+    {% if user.profile.total_hours <= GOLD_HOURS and user.profile.total_hours > SILVER_HOURS %}
+    <div id="tier" style="border-color: #C0C0C0">
+      <span style="color: #C0C0C0">SILVER Tier</span><br>
+      Over <b>{{ user.profile.total_hours }} hours</b> logged so far!
+    </div>
+    {% endif %}
+    {% if user.profile.total_hours > GOLD_HOURS %}
+    <div id="tier" style="border-color: #FFD700">
+      <span style="color: #FFD700">GOLD Tier</span><br>
+      Over <b>{{ user.profile.total_hours }} hours</b> logged so far!
+    </div>
+    {% endif %}
+
+    <h2>Progress until next tier:</h2>
+    Only <b>{{ user.hours_difference }} hours</b> away from <b>{{ user.word_right }} Tier</b>.<br><br>
+    {{ user.word_left }} <progress class="{{ user.color }}" max="100" value="{{ user.progress_value }}"></progress> {{ user.word_right }}
+
+    <h2>Awards</h2>
+    <ul>
+    {% for level, type in user.awards %}
+      <li><img src="/static/{{ level }}-{{ type }}.gif" width="200px" height="200px">{{ level }} {{ type }} Award</li>
+    {% endfor %}
+    </ul>
+    {% if request.user.username == user.username %}
+    <p><a href="/users/edit-profile"></a></p>
+    {% endif %}
+
+    <p><a href="/">Back to homepage</a></p>
+    <h2>Completed Projects</h2>
+    <ul>
+    {% for project in user.complete_projects %}
+      <li><a href="{% url 'view_project' project_id=project.id %}">{{ project.title }}</a></li>
+    {% endfor %}
+    </ul>
+  </body>
+</html>
