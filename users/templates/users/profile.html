@@ -96,33 +96,17 @@
 	   	<nav id="main-nav-wrap">
 				<ul class="main-navigation sf-menu">
 					<li><a href="/" title="">Home</a></li>
-					<li class="has-children">
-            {% if request.user.is_authenticated %}
-            <a href="/users/logout/" title="">Logout</a>
-            {% else %}
-						<a href="/users/login/" title="">Login</a>
-            <a href="/users/signup/" title="">Signup</a>
-            {% endif %}
-						<ul class="sub-menu">
-			            <li><a href="{% url 'view_user_profile' username=request.user.username %}">My Profile</a></li>
-			            <li><a href="/users/groups/create/">Create Group</a></li>
-			            <li><a href="{% url 'my_groups' username=request.user.username %}">My Groups</a></li>
-			            <li><a href="/projects/myprojects/">My Projects</a></li>
-			            <li><a href="/users/leaderboard/">Leaderboard</a></li>
-			         </ul>
-					</li>
-					<li class="has-children">
-						<a href="single-standard.html" title="">Blog</a>
-						<ul class="sub-menu">
-			            <li><a href="single-video.html">Video Post</a></li>
-			            <li><a href="single-audio.html">Audio Post</a></li>
-			            <li><a href="single-gallery.html">Gallery Post</a></li>
-			            <li><a href="single-standard.html">Standard Post</a></li>
-			         </ul>
-					</li>
-					<li><a href="style-guide.html" title="">Styles</a></li>
-					<li class="current"><a href="about.html" title="">About</a></li>
-					<li><a href="contact.html" title="">Contact</a></li>
+          {% if request.user.is_authenticated %}
+          <a href="/users/logout/" title="">Logout</a>
+          {% else %}
+          <a href="/users/login/" title="">Login</a>
+          <a href="/users/signup/" title="">Signup</a>
+          {% endif %}
+          <li><a href="{% url 'view_user_profile' username=request.user.username %}">My Profile</a></li>
+          <li><a href="/users/groups/create/">Create Group</a></li>
+          <li><a href="{% url 'my_groups' username=request.user.username %}">My Groups</a></li>
+          <li><a href="/projects/myprojects/">My Projects</a></li>
+          <li><a href="/users/leaderboard/">Leaderboard</a></li>
 				</ul>
 			</nav> <!-- end main-nav-wrap -->
 
