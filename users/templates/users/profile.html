@@ -7,7 +7,7 @@
    <!--- basic page needs
    ================================================== -->
    <meta charset="utf-8">
-	<title>{{ user.get_full_name }}</title>
+	<title>Jeep Suphanat</title>
 	<meta name="description" content="">
 	<meta name="author" content="">
 
@@ -21,7 +21,6 @@
    <link rel="stylesheet" href="/static/css/base.css">
    <link rel="stylesheet" href="/static/css/vendor.css">
    <link rel="stylesheet" href="/static/css/main.css">
-   <link rel="stylesheet" href="/static/home.css">
 
 
    <!-- script
@@ -33,6 +32,10 @@
 	================================================== -->
 	<link rel="shortcut icon" href="/static/favicon.ico" type="image/x-icon">
 	<link rel="icon" href="/static/favicon.ico" type="image/x-icon">
+
+  <style>
+  * { font-family: 'Karla', sans-serif !important; }
+  </style>
 
 </head>
 
@@ -52,7 +55,7 @@
 
 	   	<nav id="main-nav-wrap">
 				<ul class="main-navigation sf-menu">
-					<li><a href="/" title="">Home</a></li>
+					<li><a href="index.html" title="">Home</a></li>
 					<li class="has-children">
 						<a href="category.html" title="">Categories</a>
 						<ul class="sub-menu">
@@ -111,87 +114,43 @@
 
    			<section>
 
-   				<div class="content-media">
-						<img src="images/thumbs/about-us.jpg">
-					</div>
-
-					<div class="primary-content">
 
 
-						<h1 class="entry-title add-bottom">{{ user.get_full_name }}</h1>
-
-						<p class="lead">{{ user.description }}</p>
-
-            {% if user.profile.email %}
-            <p>Email: {{ user.profile.email }}</p>
-            {% endif %}
-            {% if user.profile.phone %}
-            <p>Phone number: {{ user.profile.phone }}</p>
-            {% endif %}
-
-            <h2>Current Tier:</h2>
-            {% if user.profile.total_hours <= BRONZE_HOURS %}
-            <div id="tier" style="border-color: black">
-              <span style="color: black">ROOKIE Tier</span><br>
-              Over <b>{{ user.profile.total_hours }} hours</b> logged so far!
+						<h1 class="entry-title add-bottom">Jeep Suphanat</h1>
+            <h6>Biography</h6>
+						<p>Power density, efficiency, cost, and reliability are the major challenges when designing a power electronic system. Latest advancements in power semiconductor devices (e.g., silicon carbide devices) and topological innovations have vital contributions to power density and efficiency.</p>
+            <h6>Email</h6>
+						<p>jeep@hotmail.com</p>
+            <h6>Phone number</h6>
+						<p>079647459</p>
+            <div>
+              <h2>Current Progress</h2>
+                  <div><img src="Gold-Commitment.png" style="margin-left: 0; margin-right: 20px; height:200px"></div>
+                  <div><h3>GOLD Tier Volunteer</h3><h5 style="margin: 0">400 hrs logged</h5><progress class="" max="100" value="60" style="height: 15px; width: 500px; display: block;"></progress><h5>60 hrs until PLATINUM</h5></div>
             </div>
-            {% endif %}
-            {% if user.profile.total_hours <= SILVER_HOURS and user.profile.total_hours > BRONZE_HOURS %}
-            <div id="tier" style="border-color: #cd7f32">
-              <span style="color: #cd7f32">BRONZE Tier</span><br>
-              Over <b>{{ user.profile.total_hours }} hours</b> logged so far!
-            </div>
-            {% endif %}
-            {% if user.profile.total_hours <= GOLD_HOURS and user.profile.total_hours > SILVER_HOURS %}
-            <div id="tier" style="border-color: #C0C0C0">
-              <span style="color: #C0C0C0">SILVER Tier</span><br>
-              Over <b>{{ user.profile.total_hours }} hours</b> logged so far!
-            </div>
-            {% endif %}
-            {% if user.profile.total_hours > GOLD_HOURS %}
-            <div id="tier" style="border-color: #FFD700">
-              <span style="color: #FFD700">GOLD Tier</span><br>
-              Over <b>{{ user.profile.total_hours }} hours</b> logged so far!
-            </div>
-            {% endif %}
-
-            <h2>Progress until next tier:</h2>
-            <p>Only <b>{{ user.hours_difference }} hours</b> away from <b>{{ user.word_right }} Tier</b>.<br><br>
-            {{ user.word_left }} <progress class="{{ user.color }}" max="100" value="{{ user.progress_value }}"></progress> {{ user.word_right }}</p>
-
-            {% if request.user.username == user.username %}
-            <p><a href="/users/edit-profile"></a></p>
-            {% endif %}
-
-            <p><a href="/">Back to homepage</a></p>
-            <h2>Completed Projects</h2>
-            <ul>
-            {% for project in user.complete_projects %}
-              <li><a href="{% url 'view_project' project_id=project.id %}">{{ project.title }}</a></li>
-            {% endfor %}
-            </ul>
-
 						<div>
               <h2>Awards</h2>
-              {% for level, type in user.awards %}
-              <article class="brick entry format-standard animate-this">
+							<div style="display: inline-block; margin-right: 20px">
+								<h3>Bronze Social Award</h3>
+								<p><img src="Bronze-Social.gif" width="200px" height="200px"></p>
+							</div>
+              <div style="display: inline-block; margin-right: 20px">
+								<h3>Bronze Social Award</h3>
+								<p><img src="Bronze-Social.gif" width="200px" height="200px"></p>
+							</div>
+              <div style="display: inline-block; margin-right: 20px">
+								<h3>Bronze Social Award</h3>
+								<p><img src="Bronze-Social.gif" width="200px" height="200px"></p>
+							</div>
+              <div style="display: inline-block; margin-right: 20px">
+								<h3>Bronze Social Award</h3>
+								<p><img src="Bronze-Social.gif" width="200px" height="200px"></p>
+							</div>
 
-                 <div class="entry-text">
-                 	<div class="entry-header">
-
-                 		<h3 class="entry-title">{{ level }} {{ type }} Award</h3>
-
-                 	</div>
-  						<div class="entry-excerpt">
-                <img src="/static/{{ level }}-{{ type }}.gif" width="200px" height="200px">
-  						</div>
-                 </div>
-
-          		</article> <!-- end article -->
-              {% endfor %}
 						</div>
 
 					</div>
+
 
 				</section>
 
@@ -205,73 +164,6 @@
    ================================================== -->
    <footer>
 
-   	<div class="footer-main">
-
-   		<div class="row">
-
-	      	<div class="col-four tab-full mob-full footer-info">
-
-	            <h4>About Our Site</h4>
-
-	               <p>
-		          	Lorem ipsum Ut velit dolor Ut labore id fugiat in ut fugiat nostrud qui in dolore commodo eu magna Duis cillum dolor officia esse mollit proident Excepteur exercitation nulla. Lorem ipsum In reprehenderit commodo aliqua irure labore.
-		          	</p>
-
-		      </div> <!-- end footer-info -->
-
-	      	<div class="col-two tab-1-3 mob-1-2 site-links">
-
-	      		<h4>Site Links</h4>
-
-	      		<ul>
-	      			<li><a href="#">About Us</a></li>
-						<li><a href="#">Blog</a></li>
-						<li><a href="#">FAQ</a></li>
-						<li><a href="#">Terms</a></li>
-						<li><a href="#">Privacy Policy</a></li>
-					</ul>
-
-	      	</div> <!-- end site-links -->
-
-	      	<div class="col-two tab-1-3 mob-1-2 social-links">
-
-	      		<h4>Social</h4>
-
-	      		<ul>
-	      			<li><a href="#">Twitter</a></li>
-						<li><a href="#">Facebook</a></li>
-						<li><a href="#">Dribbble</a></li>
-						<li><a href="#">Google+</a></li>
-						<li><a href="#">Instagram</a></li>
-					</ul>
-
-	      	</div> <!-- end social links -->
-
-	      	<div class="col-four tab-1-3 mob-full footer-subscribe">
-
-	      		<h4>Subscribe</h4>
-
-	      		<p>Keep yourself updated. Subscribe to our newsletter.</p>
-
-	      		<div class="subscribe-form">
-
-	      			<form id="mc-form" class="group" novalidate="true">
-
-							<input type="email" value="" name="dEmail" class="email" id="mc-email" placeholder="Type &amp; press enter" required="">
-
-			   			<input type="submit" name="subscribe" >
-
-		   				<label for="mc-email" class="subscribe-message"></label>
-
-						</form>
-
-	      		</div>
-
-	      	</div> <!-- end subscribe -->
-
-	      </div> <!-- end row -->
-
-   	</div> <!-- end footer-main -->
 
       <div class="footer-bottom">
       	<div class="row">
@@ -298,9 +190,9 @@
 
    <!-- Java Script
    ================================================== -->
-   <script src="/static/js/jquery-2.1.3.min.js"></script>
-   <script src="/static/js/plugins.js"></script>
-   <script src="/static/js/main.js"></script>
+   <script src="js/jquery-2.1.3.min.js"></script>
+   <script src="js/plugins.js"></script>
+   <script src="js/main.js"></script>
 
 </body>
 
