@@ -11,11 +11,11 @@ SILVER_HOURS = 100
 GOLD_HOURS = 200
 
 def hours_to_level(hours):
-    if hours <= BRONZE_HOURS:
+    if hours < BRONZE_HOURS:
         return None
-    if hours <= SILVER_HOURS:
+    if hours < SILVER_HOURS:
         return "Bronze"
-    if hours <= GOLD_HOURS:
+    if hours < GOLD_HOURS:
         return "Silver"
     return "Gold"
 
@@ -77,22 +77,32 @@ def view_user_profile(request, username):
         if entry.user.username == username:
             user.complete_projects.append(entry.project)
 
-    if user.profile.total_hours() <= BRONZE_HOURS:
+    if user.profile.total_hours() < BRONZE_HOURS:
         user.hours_difference = BRONZE_HOURS - user.profile.total_hours()
         user.progress_value = user.profile.total_hours() / BRONZE_HOURS
-        user.word_left = "ROOKIE"
+        user.tier = "ROOKIE"
         user.word_right = "BRONZE"
+        user.tier_img = ""
         user.color = "bronze"
-    elif user.profile.total_hours() <= SILVER_HOURS:
+    elif user.profile.total_hours() < SILVER_HOURS:
         user.hours_difference = SILVER_HOURS - user.profile.total_hours()
         user.progress_value = int((user.profile.total_hours() - BRONZE_HOURS) / (SILVER_HOURS - BRONZE_HOURS) * 100)
-        user.word_left = "BRONZE"
+        user.tier = "BRONZE"
         user.word_right = "SILVER"
+        user.tier_img = "Bronze-Commitment"
         user.color = "silver"
-    elif user.profile.total_hours() <= GOLD_HOURS:
+    elif user.profile.total_hours() < GOLD_HOURS:
         user.hours_difference = GOLD_HOURS - user.profile.total_hours()
         user.progress_value = int((user.profile.total_hours() - SILVER_HOURS) / (GOLD_HOURS - SILVER_HOURS) * 100)
-        user.word_left = "SILVER"
+        user.tier_img = "Silver-Commitment"
+        user.tier = "SILVER"
+        user.word_right = "GOLD"
+        user.color = "gold"
+    else:
+        user.hours_difference = 0
+        user.progress_value = 100
+        user.tier_img = "Gold-Commitment"
+        user.tier = "GOLD"
         user.word_right = "GOLD"
         user.color = "gold"
 

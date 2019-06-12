@@ -7,7 +7,7 @@
    <!--- basic page needs
    ================================================== -->
    <meta charset="utf-8">
-	<title>Jeep Suphanat</title>
+	<title>{{ user.get_full_name }}</title>
 	<meta name="description" content="">
 	<meta name="author" content="">
 
@@ -116,17 +116,21 @@
 
 
 
-						<h1 class="entry-title add-bottom">Jeep Suphanat</h1>
+						<h1 class="entry-title add-bottom">{{ user.get_full_name }}</h1>
             <h6>Biography</h6>
-						<p>Power density, efficiency, cost, and reliability are the major challenges when designing a power electronic system. Latest advancements in power semiconductor devices (e.g., silicon carbide devices) and topological innovations have vital contributions to power density and efficiency.</p>
+						<p>{{ user.profile.bio }}</p>
+            {% if user.email %}
             <h6>Email</h6>
-						<p>jeep@hotmail.com</p>
+						<p>{{ user.profile.email }}</p>
+            {% endif %}
+            {% if user.profile.phone}
             <h6>Phone number</h6>
 						<p>079647459</p>
+            {% endif %}
             <div>
               <h2>Current Progress</h2>
-                  <div><img src="/static/images/Gold-Commitment.png" style="margin-left: 0; margin-right: 20px; height:200px"></div>
-                  <div><h3>GOLD Tier Volunteer</h3><h5 style="margin: 0">400 hrs logged</h5><progress class="" max="100" value="60" style="height: 15px; width: 500px; display: block;"></progress><h5>60 hrs until PLATINUM</h5></div>
+                  <div><img src="/static/images/{{ user.tier_img }}.png" style="margin-left: 0; margin-right: 20px; height:200px"></div>
+                  <div><h3>{{ user.tier }} Tier Volunteer</h3><h5 style="margin: 0">{{ user.profile.total_hours }} hrs logged</h5><progress class="" max="100" value="{{ user.progress_value }}" style="height: 15px; width: 500px; display: block;"></progress><h5>{{ user.hours_difference }} hrs until PLATINUM</h5></div>
             </div>
 						<div>
               <h2>Awards</h2>
