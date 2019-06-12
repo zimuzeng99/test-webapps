@@ -1,6 +1,6 @@
-/* =================================================================== 
+/* ===================================================================
  *
- *  Abstract v1.0 Vendor/Third Party CSS 
+ *  Abstract v1.0 Vendor/Third Party CSS
  *  url: www.styleshout.com
  *  09-06-2016
  *  ------------------------------------------------------------------
@@ -2841,7 +2841,7 @@
  * http://www.gnu.org/licenses/gpl-2.0.html
  *
  * Contributing author: Tyler Smith (@mbmufffin)
- * 
+ *
  * =================================================================== */
 
 /* reset */
@@ -2905,7 +2905,7 @@ html[xmlns] .flexslider .slides {
 
 /**
  * MediaElementjs
- * 
+ *
  * =================================================================== */
 .mejs-offscreen {
   /* Accessibility: hide screen reader texts (and prefer "top" for RTL languages).  Reference: http://blog.rrwd.nl/2015/04/04/the-screen-reader-text-class-why-and-how/ */
@@ -3031,11 +3031,9 @@ html[xmlns] .flexslider .slides {
   width: 100px;
   height: 100px;
   margin: -50px 0 0 -50px;
-  background: url(bigplay.svg) no-repeat;
 }
 
 .no-svg .mejs-overlay-button {
-  background-image: url(bigplay.png);
 }
 
 .mejs-overlay:hover .mejs-overlay-button {
@@ -3050,7 +3048,6 @@ html[xmlns] .flexslider .slides {
   height: 80px;
   margin: -40px 0 0 -40px;
   background: #333;
-  background: url(background.png);
   background: rgba(0, 0, 0, 0.9);
   background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(rgba(50, 50, 50, 0.9)), to(rgba(0, 0, 0, 0.9)));
   background: -webkit-linear-gradient(top, rgba(50, 50, 50, 0.9), rgba(0, 0, 0, 0.9));
@@ -3064,7 +3061,6 @@ html[xmlns] .flexslider .slides {
   display: block;
   width: 80px;
   height: 80px;
-  background: transparent url(loading.gif) 50% 50% no-repeat;
 }
 
 /* End: LAYERS */
@@ -3076,7 +3072,6 @@ html[xmlns] .flexslider .slides {
   padding: 0;
   bottom: 0;
   left: 0;
-  background: url(background.png);
   background: rgba(0, 0, 0, 0.7);
   background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(rgba(50, 50, 50, 0.7)), to(rgba(0, 0, 0, 0.7)));
   background: -webkit-linear-gradient(top, rgba(50, 50, 50, 0.7), rgba(0, 0, 0, 0.7));
@@ -3115,11 +3110,9 @@ html[xmlns] .flexslider .slides {
   height: 16px;
   width: 16px;
   border: 0;
-  background: transparent url(controls.svg) no-repeat;
 }
 
 .no-svg .mejs-controls .mejs-button button {
-  background-image: url(controls.png);
 }
 
 /* :focus for accessibility */
@@ -3376,7 +3369,6 @@ html[xmlns] .flexslider .slides {
   display: none;
   height: 115px;
   width: 25px;
-  background: url(background.png);
   background: rgba(50, 50, 50, 0.7);
   -webkit-border-radius: 0;
   -moz-border-radius: 0;
@@ -3511,7 +3503,6 @@ html[xmlns] .flexslider .slides {
   right: -51px;
   width: 85px;
   height: 100px;
-  background: url(background.png);
   background: rgba(50, 50, 50, 0.7);
   border: solid 1px transparent;
   padding: 10px 10px 0 10px;
@@ -3665,7 +3656,6 @@ html[xmlns] .flexslider .slides {
 
 .mejs-captions-text {
   padding: 3px 5px;
-  background: url(background.png);
   background: rgba(20, 20, 20, 0.5);
   white-space: pre-wrap;
 }
@@ -3759,7 +3749,6 @@ html[xmlns] .flexslider .slides {
   right: -10px;
   width: 130px;
   height: 100px;
-  background: url(background.png);
   background: rgba(50, 50, 50, 0.7);
   border: solid 1px transparent;
   padding: 10px;
@@ -3809,7 +3798,6 @@ html[xmlns] .flexslider .slides {
   left: 0;
   width: 100%;
   height: 100%;
-  background: url(background.png);
   background: rgba(50, 50, 50, 0.7);
   z-index: 1000;
   overflow: hidden;
@@ -3824,7 +3812,6 @@ html[xmlns] .flexslider .slides {
   position: absolute;
   right: 0;
   top: 0;
-  background: url(background.png);
   background: rgba(50, 50, 50, 0.7);
   color: #fff;
   padding: 4px;
@@ -3854,7 +3841,6 @@ div.mejs-speed-button {
   left: -10px;
   width: 60px;
   height: 100px;
-  background: url(background.png);
   background: rgba(50, 50, 50, 0.7);
   border: solid 1px transparent;
   padding: 0;
@@ -3916,7 +3902,6 @@ div.mejs-speed-button {
 /* End: Speed */
 /* Start: Jump Forward */
 .mejs-controls .mejs-button.mejs-jump-forward-button {
-  background: transparent url(jumpforward.png) no-repeat;
   background-position: 3px 3px;
 }
 
@@ -3930,7 +3915,6 @@ div.mejs-speed-button {
 /* End: Jump Forward */
 /* Start: Skip Back */
 .mejs-controls .mejs-button.mejs-skip-back-button {
-  background: transparent url(skipback.png) no-repeat;
   background-position: 3px 3px;
 }
 
@@ -3946,7 +3930,7 @@ div.mejs-speed-button {
 /* End: Skip Back */
 /*! Lity - v1.6.6 - 2016-04-22
  * http://sorgalla.com/lity/
- * Copyright (c) 2016 Jan Sorgalla; Licensed MIT  
+ * Copyright (c) 2016 Jan Sorgalla; Licensed MIT
  ====================================================== */
 
 .lity {
@@ -4193,8 +4177,8 @@ div.mejs-speed-button {
 }
 
 
-/** 
- * prettyprint GitHub Theme 
+/**
+ * prettyprint GitHub Theme
  * =================================================================== */
 .prettyprint {
   background: #EAEAEA;
