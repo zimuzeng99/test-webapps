@@ -1,97 +1,355 @@
-<!doctype html>
-<html>
-  <head>
-    <title>Volunteer Find</title>
-    <meta name="viewport" content="width=device-width">
-    <link href="https://fonts.googleapis.com/css?family=Karla&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/static/home.css">
-  </head>
-  <body>
-    <p>{% if not request.user.is_authenticated %}<a href="/users/login/">Login</a><br><a href="/users/signup/">Sign up</a>{% endif %}{% if request.user.is_authenticated %}<a href="/users/logout/">Logout</a>{% endif %}</p>
-    {% if request.user.is_authenticated %}
-    <p><a href="{% url 'view_user_profile' username=request.user.username %}">My Profile</a></p>
-    <p><a href="/users/groups/create/">Create group</a></p>
-    <p><a href="{% url 'my_groups' username=request.user.username %}">My groups</a></p>
-    <p><a href="/projects/myprojects/">My projects</a></p>
-    <p><a href="/users/leaderboard/">Leaderboard</a></p>
-    {% endif %}
-    <h1>Volunteer Find</h1>
-    <div id="projects">
-      {% for project in projects %}
-      <div class="project">
-        <h3><a href="{% url 'view_project' project_id=project.id %}">{{ project.title }}</a></h3>
-        <p><em>{{ project.type }}</em></p>
-        <p>{{ project.description }}</p>
-        <p>Distance from your location: {{ project.distance }} km</p>
-        <p>Start date: {{ project.start_date }}</p>
-        <p>End date: {{ project.end_date }}</p>
-        <p>Estimated hours of work: {{ project.duration }} hrs</p>
-        <p><a href="#" class="signup-button" id="project{{ project.id }}">Join this project</a></p>
-      </div>
-      {% endfor %}
-    </div>
-    {% if request.user.is_authenticated %}
-    <div id="panel">
-      <button id="findButton">Find Projects</button>
+<!DOCTYPE html>
+<!--[if IE 8 ]><html class="no-js oldie ie8" lang="en"> <![endif]-->
+<!--[if IE 9 ]><html class="no-js oldie ie9" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--><html class="no-js" lang="en"> <!--<![endif]-->
+<head>
 
-      <button id="createButton">Create Project</button>
+   <!--- basic page needs
+   ================================================== -->
+   <meta charset="utf-8">
+	<title>Home</title>
+	<meta name="description" content="">
+	<meta name="author" content="">
 
-      <div id="search">
-        <h2>Search for Volunteering Projects</h2>
-        <form id="searchForm" action="/" method="GET">
-          {% csrf_token %}
-          <label for="minduration">Minimum duration (hrs)</label> <br>
-          <input type="number" name="minduration" value="{{ minduration }}"> <br>
-          <label for="minduration">Maximum duration (hrs)</label> <br>
-          <input type="number" name="maxduration" value="{{ maxduration }}"> <br>
-          <label for="maxdistance">Maximum distance (km)</label> <br>
-          <input type="number" name="maxdistance" value="{{ maxdistance }}"> <br>
-          <label for="latitude">Latitude</label> <br>
-          <input type="number" name="latitude" value="{{ latitude }}" step="any"> <br>
-          <label for="longitude">Longitude</label> <br>
-          <input type="number" name="longitude" value="{{ longitude }}" step="any"> <br>
-          <input type="submit" value="Search for projects">
-        </form>
-      </div>
-      <div id="create">
-        <h2>Create a new Project</h2>
-        <form id="creationForm" action="/projects/create/" method="POST">
-          {% csrf_token %}
-          <label for="title">Title</label> <br>
-          <input type="text" name="title"> <br>
-          <label for="description">Description</label> <br>
-          <textarea name="description"></textarea> <br>
-          <label for="latitude">Latitude</label> <br>
-          <input type="number" name="latitude" step="any"> <br>
-          <label for="longitude">Longitude</label> <br>
-          <input type="number" name="longitude" step="any"> <br>
-          <label for="type">Type of volunteering</label> <br>
-          <input type="text" name="type"> <br>
-          <label for="duration">Duration (hrs)</label> <br>
-          <input type="number" name="duration"> <br>
-          <input type="submit" value="Create new project">
-        </form>
-      </div>
-    </div>
-    {% endif %}
-    <script src="/static/main.js"></script>
-    <script>
-      if (window.location.search.substr(1) == "") {
-        if ("geolocation" in navigator) {
-          navigator.geolocation.getCurrentPosition(function(position) {
-            document.getElementsByName("latitude")[0].setAttribute("value", position.coords.latitude);
-            document.getElementsByName("longitude")[0].setAttribute("value", position.coords.longitude);
-          });
-        }
-      }
-      document.getElementById("findButton").addEventListener("click", function() {
-        document.getElementById("search").style.display = "block";
-        document.getElementById("create").style.display = "none";
-      });
-      document.getElementById("createButton").addEventListener("click", function() {
-        document.getElementById("search").style.display = "none";
-        document.getElementById("create").style.display = "block";
-      });
-    </script>
-  </body>
+   <!-- mobile specific metas
+   ================================================== -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+ 	<!-- CSS
+   ================================================== -->
+   <link href="https://fonts.googleapis.com/css?family=Karla&display=swap" rel="stylesheet">
+   <link rel="stylesheet" href="/static/css/base.css">
+   <link rel="stylesheet" href="/static/css/vendor.css">
+   <link rel="stylesheet" href="/static/css/main.css">
+
+
+   <!-- script
+   ================================================== -->
+	<script src="/static/js/modernizr.js"></script>
+	<script src="/static/js/pace.min.js"></script>
+
+   <!-- favicons
+	================================================== -->
+	<link rel="shortcut icon" href="/static/favicon.ico" type="image/x-icon">
+	<link rel="icon" href="/static/favicon.ico" type="image/x-icon">
+
+  <style>
+  * { font-family: 'Karla', sans-serif !important; }
+  article h6 {
+    margin: 0;
+  }
+  article p {
+    margin-bottom: 15px;
+  }
+  article {
+    width: 50% !important;
+  }
+  </style>
+
+</head>
+
+<body id="top">
+
+	<!-- header
+   ================================================== -->
+   <header class="short-header">
+
+   	<div class="gradient-block"></div>
+
+   	<div class="row header-content">
+
+   		<div class="logo">
+	         <a href="index.html">Author</a>
+	      </div>
+
+        <nav id="main-nav-wrap">
+  				<ul class="main-navigation sf-menu">
+  					<li><a href="/" title="">Home</a></li>
+            {% if request.user.is_authenticated %}
+            <li><a href="{% url 'view_user_profile' username=request.user.username %}">My Profile</a></li>
+            <li><a href="/users/groups/create/">Create Group</a></li>
+            <li><a href="{% url 'my_groups' username=request.user.username %}">My Groups</a></li>
+            <li><a href="/projects/myprojects/">My Projects</a></li>
+            {% endif %}
+            <li><a href="/users/leaderboard/">Leaderboard</a></li>
+            {% if request.user.is_authenticated %}
+            <li><a href="/users/logout/" title="">Logout</a></li>
+            {% else %}
+            <li><a href="/users/login/" title="">Login</a></li>
+            <li><a href="/users/signup/" title="">Signup</a></li>
+            {% endif %}
+  				</ul>
+  			</nav> <!-- end main-nav-wrap -->
+
+   	</div>
+
+   </header> <!-- end header -->
+
+
+
+   <section id="content-wrap" class="site-page">
+   	<div class="row">
+   		<div class="col-twelve">
+
+   			<div id="search">
+            <h1>Find Projects</h1>
+						<form id="searchForm" method="post" action="/">
+              {% csrf_token %}
+	  					   <fieldset>
+
+	                     <div class="form-field">
+	  						      <input name="minduration" type="number" class="full-width" placeholder="Minimum duration (hrs)" value="{{ minduration }}">
+	                     </div>
+
+	                     <div class="form-field">
+	  						      <input name="maxduration" type="number" class="full-width" placeholder="Maximum duration (hrs)" value="{{ maxduration }}>
+	                     </div>
+
+	                     <div class="form-field">
+	  						      <input name="maxdistance" type="number" class="full-width" placeholder="Maximum distance (km)" value="{{ maxdistance }}">
+	                     </div>
+                       <div class="form-field">
+	  						      <input name="latitude" type="number" class="full-width" placeholder="Latitude" value="{{ latitude }}" step="any">
+	                     </div>
+                       <div class="form-field">
+	  						      <input name="longitude" type="number" class="full-width" placeholder="Longitude" value="{{ longitude }}" step="any">
+	                     </div>
+	                     <button type="submit" class="submit button-primary full-width-on-mobile">Search for projects</button>
+
+	  					   </fieldset>
+  				      </form> <!-- end form -->
+
+				</div>
+        <div id="create">
+            <h1>Create A New Project</h1>
+						<form id="creationForm" method="post" action="/projects/create/">
+              {% csrf_token %}
+	  					   <fieldset>
+
+	                     <div class="form-field">
+	  						      <input name="title" type="text" class="full-width" placeholder="Title">
+	                     </div>
+
+	                     <div class="form-field">
+	  						      <input name="description" type="text" class="full-width" placeholder="Description">
+	                     </div>
+
+                       <div class="form-field">
+	  						      <input name="latitude" type="number" class="full-width" placeholder="Latitude" step="any">
+	                     </div>
+                       <div class="form-field">
+	  						      <input name="longitude" type="number" class="full-width" placeholder="Longitude" step="any">
+	                     </div>
+                       <select name="type">
+                         <option value="Social">Social</option>
+                         <option value="Educational">Educational</option>
+                         <option value="Environmental">Environmental</option>
+                       </select>
+                       <div class="form-field">
+	  						      <input name="duration" type="number" class="full-width" placeholder="Duration (hrs)">
+	                     </div>
+	                     <button type="submit" class="submit button-primary full-width-on-mobile">Create new project</button>
+
+	  					   </fieldset>
+  				      </form> <!-- end form -->
+
+				</div>
+
+
+			</div> <!-- end col-twelve -->
+   	</div> <!-- end row -->
+   </section> <!-- end content -->
+   <!-- masonry
+   ================================================== -->
+   <section id="bricks">
+
+   	<div class="row masonry">
+
+   		<!-- brick-wrapper -->
+         <div class="bricks-wrapper">
+
+         	<div class="grid-sizer"></div>
+
+         	<article class="brick entry format-standard animate-this">
+
+               <div class="entry-text">
+               	<div class="entry-header">
+
+               		<div class="entry-meta">
+               			<span class="cat-links">
+               				<a href="#">Social</a>
+               			</span>
+               		</div>
+
+               		<h1 class="entry-title"><a href="single-standard.html">Work in a charity shop</a></h1>
+
+               	</div>
+              <h6>Description</h6>
+						<p>
+							Help to process clothes brought into an Oxfam store to be sold on.
+						</p>
+            <h6>Distance from your location</h6>
+          <p>
+            13 km
+          </p>
+          <h6>Start date</h6>
+        <p>
+          5 July 2019
+        </p>
+        <h6>End date</h6>
+      <p>
+        7 July 2019
+      </p>
+               </div>
+
+        		</article> <!-- end article -->
+            <article class="brick entry format-standard animate-this">
+
+                 <div class="entry-text">
+                 	<div class="entry-header">
+
+                 		<div class="entry-meta">
+                 			<span class="cat-links">
+                 				<a href="#">Social</a>
+                 			</span>
+                 		</div>
+
+                 		<h1 class="entry-title"><a href="single-standard.html">Work in a charity shop</a></h1>
+
+                 	</div>
+  						<div class="entry-excerpt">
+  							Help to process clothes brought into an Oxfam store to be sold on.
+  						</div>
+              <div class="entry-excerpt">
+  							Distance from your location: 13 km
+  						</div>
+              <div class="entry-excerpt">
+  							Start date: May 30, 2019
+  						</div>
+              <div class="entry-excerpt">
+  							End date: July 17, 2019
+  						</div>
+                 </div>
+
+          		</article> <!-- end article -->
+              <article class="brick entry format-standard animate-this">
+
+                   <div class="entry-text">
+                   	<div class="entry-header">
+
+                   		<div class="entry-meta">
+                   			<span class="cat-links">
+                   				<a href="#">Social</a>
+                   			</span>
+                   		</div>
+
+                   		<h1 class="entry-title"><a href="single-standard.html">Work in a charity shop</a></h1>
+
+                   	</div>
+    						<div class="entry-excerpt">
+    							Help to process clothes brought into an Oxfam store to be sold on.
+    						</div>
+                <div class="entry-excerpt">
+    							Distance from your location: 13 km
+    						</div>
+                <div class="entry-excerpt">
+    							Start date: May 30, 2019
+    						</div>
+                <div class="entry-excerpt">
+    							End date: July 17, 2019
+    						</div>
+                   </div>
+
+            		</article> <!-- end article -->
+                <article class="brick entry format-standard animate-this">
+
+                     <div class="entry-text">
+                     	<div class="entry-header">
+
+                     		<div class="entry-meta">
+                     			<span class="cat-links">
+                     				<a href="#">Social</a>
+                     			</span>
+                     		</div>
+
+                     		<h1 class="entry-title"><a href="single-standard.html">Work in a charity shop</a></h1>
+
+                     	</div>
+      						<div class="entry-excerpt">
+      							Help to process clothes brought into an Oxfam store to be sold on.
+      						</div>
+                  <div class="entry-excerpt">
+      							Distance from your location: 13 km
+      						</div>
+                  <div class="entry-excerpt">
+      							Start date: May 30, 2019
+      						</div>
+                  <div class="entry-excerpt">
+      							End date: July 17, 2019
+      						</div>
+                     </div>
+
+              		</article> <!-- end article -->
+
+         </div> <!-- end brick-wrapper -->
+
+   	</div> <!-- end row -->
+
+   	<div class="row">
+
+   		<nav class="pagination">
+		      <span class="page-numbers prev inactive">Prev</span>
+		   	<span class="page-numbers current">1</span>
+		   	<a href="#" class="page-numbers">2</a>
+		      <a href="#" class="page-numbers">3</a>
+		      <a href="#" class="page-numbers">4</a>
+		      <a href="#" class="page-numbers">5</a>
+		      <a href="#" class="page-numbers">6</a>
+		      <a href="#" class="page-numbers">7</a>
+		      <a href="#" class="page-numbers">8</a>
+		      <a href="#" class="page-numbers">9</a>
+		   	<a href="#" class="page-numbers next">Next</a>
+	      </nav>
+
+   	</div>
+
+   </section> <!-- end bricks -->
+
+
+   <!-- footer
+   ================================================== -->
+   <footer>
+
+      <div class="footer-bottom">
+      	<div class="row">
+
+      		<div class="col-twelve">
+	      		<div class="copyright">
+		         	<span>© Copyright Abstract 2016</span>
+		         	<span>Design by <a href="http://www.styleshout.com/">styleshout</a></span>
+		         </div>
+
+		         <div id="go-top">
+		            <a class="smoothscroll" title="Back to Top" href="#top"><i class="icon icon-arrow-up"></i></a>
+		         </div>
+	      	</div>
+
+      	</div>
+      </div> <!-- end footer-bottom -->
+
+   </footer>
+
+   <div id="preloader">
+    	<div id="loader"></div>
+   </div>
+
+   <!-- Java Script
+   ================================================== -->
+   <script src="/static/js/jquery-2.1.3.min.js"></script>
+   <script src="/static/js/plugins.js"></script>
+   <script src="/static/js/jquery.appear.js"></script>
+   <script src="/static/js/main.js"></script>
+
+</body>
+
 </html>

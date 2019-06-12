@@ -1,0 +1,97 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Volunteer Find</title>
+    <meta name="viewport" content="width=device-width">
+    <link href="https://fonts.googleapis.com/css?family=Karla&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/home.css">
+  </head>
+  <body>
+    <p>{% if not request.user.is_authenticated %}<a href="/users/login/">Login</a><br><a href="/users/signup/">Sign up</a>{% endif %}{% if request.user.is_authenticated %}<a href="/users/logout/">Logout</a>{% endif %}</p>
+    {% if request.user.is_authenticated %}
+    <p><a href="{% url 'view_user_profile' username=request.user.username %}">My Profile</a></p>
+    <p><a href="/users/groups/create/">Create group</a></p>
+    <p><a href="{% url 'my_groups' username=request.user.username %}">My groups</a></p>
+    <p><a href="/projects/myprojects/">My projects</a></p>
+    <p><a href="/users/leaderboard/">Leaderboard</a></p>
+    {% endif %}
+    <h1>Volunteer Find</h1>
+    <div id="projects">
+      {% for project in projects %}
+      <div class="project">
+        <h3><a href="{% url 'view_project' project_id=project.id %}">{{ project.title }}</a></h3>
+        <p><em>{{ project.type }}</em></p>
+        <p>{{ project.description }}</p>
+        <p>Distance from your location: {{ project.distance }} km</p>
+        <p>Start date: {{ project.start_date }}</p>
+        <p>End date: {{ project.end_date }}</p>
+        <p>Estimated hours of work: {{ project.duration }} hrs</p>
+        <p><a href="#" class="signup-button" id="project{{ project.id }}">Join this project</a></p>
+      </div>
+      {% endfor %}
+    </div>
+    {% if request.user.is_authenticated %}
+    <div id="panel">
+      <button id="findButton">Find Projects</button>
+
+      <button id="createButton">Create Project</button>
+
+      <div id="search">
+        <h2>Search for Volunteering Projects</h2>
+        <form id="searchForm" action="/" method="GET">
+          {% csrf_token %}
+          <label for="minduration">Minimum duration (hrs)</label> <br>
+          <input type="number" name="minduration" value="{{ minduration }}"> <br>
+          <label for="minduration">Maximum duration (hrs)</label> <br>
+          <input type="number" name="maxduration" value="{{ maxduration }}"> <br>
+          <label for="maxdistance">Maximum distance (km)</label> <br>
+          <input type="number" name="maxdistance" value="{{ maxdistance }}"> <br>
+          <label for="latitude">Latitude</label> <br>
+          <input type="number" name="latitude" value="{{ latitude }}" step="any"> <br>
+          <label for="longitude">Longitude</label> <br>
+          <input type="number" name="longitude" value="{{ longitude }}" step="any"> <br>
+          <input type="submit" value="Search for projects">
+        </form>
+      </div>
+      <div id="create">
+        <h2>Create a new Project</h2>
+        <form id="creationForm" action="/projects/create/" method="POST">
+          {% csrf_token %}
+          <label for="title">Title</label> <br>
+          <input type="text" name="title"> <br>
+          <label for="description">Description</label> <br>
+          <textarea name="description"></textarea> <br>
+          <label for="latitude">Latitude</label> <br>
+          <input type="number" name="latitude" step="any"> <br>
+          <label for="longitude">Longitude</label> <br>
+          <input type="number" name="longitude" step="any"> <br>
+          <label for="type">Type of volunteering</label> <br>
+          <input type="text" name="type"> <br>
+          <label for="duration">Duration (hrs)</label> <br>
+          <input type="number" name="duration"> <br>
+          <input type="submit" value="Create new project">
+        </form>
+      </div>
+    </div>
+    {% endif %}
+    <script src="/static/main.js"></script>
+    <script>
+      if (window.location.search.substr(1) == "") {
+        if ("geolocation" in navigator) {
+          navigator.geolocation.getCurrentPosition(function(position) {
+            document.getElementsByName("latitude")[0].setAttribute("value", position.coords.latitude);
+            document.getElementsByName("longitude")[0].setAttribute("value", position.coords.longitude);
+          });
+        }
+      }
+      document.getElementById("findButton").addEventListener("click", function() {
+        document.getElementById("search").style.display = "block";
+        document.getElementById("create").style.display = "none";
+      });
+      document.getElementById("createButton").addEventListener("click", function() {
+        document.getElementById("search").style.display = "none";
+        document.getElementById("create").style.display = "block";
+      });
+    </script>
+  </body>
+</html>
