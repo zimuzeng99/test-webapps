@@ -79,7 +79,7 @@ def view_user_profile(request, username):
 
     if user.profile.total_hours() < BRONZE_HOURS:
         user.hours_difference = BRONZE_HOURS - user.profile.total_hours()
-        user.progress_value = user.profile.total_hours() / BRONZE_HOURS
+        user.progress_value = int(user.profile.total_hours() / BRONZE_HOURS * 100)
         user.tier = "ROOKIE"
         user.word_right = "BRONZE"
         user.color = "bronze"
