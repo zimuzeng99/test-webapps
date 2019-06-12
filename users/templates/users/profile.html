@@ -170,29 +170,18 @@
             <div>
               <h2>Current Progress</h2>
               {% if user.tier != "ROOKIE" %}
-                  <div><img src="/static/images/{{ user.tier_img }}.png" style="margin-left: 0; margin-right: 20px; height:200px"></div>
+                  <div><img src="/static/images/{{ user.tier_img }}.gif" style="margin-left: 0; margin-right: 20px; height:200px"></div>
               {% endif %}
                   <div><h3>{{ user.tier }} Tier Volunteer</h3><h5 style="margin: 0">{{ user.profile.total_hours }} hrs logged</h5>{% if user.tier != "GOLD" %}<progress id="progressbar" class="{{ user.color }}" max="100" value="{{ user.progress_value }}" style="height: 15px; width: 500px; display: block;"></progress><h5 style="margin: 0">{{ user.hours_difference }} hrs until {{ user.word_right }}</h5>{% endif %}</div>
             </div>
 						<div style="margin-top: 12px">
               <h2>Awards</h2>
+              {% for level, type in user.awards %}
 							<div style="display: inline-block; margin-right: 20px">
-								<h3>Bronze Social Award</h3>
-								<p><img src="/static/images/Bronze-Social.gif" width="200px" height="200px"></p>
+								<h3>{{ level }} {{ type }} Award</h3>
+								<p><img src="/static/images/{{ level }}-{{ type }}.gif" width="200px" height="200px"></p>
 							</div>
-              <div style="display: inline-block; margin-right: 20px">
-								<h3>Bronze Social Award</h3>
-								<p><img src="/static/images/Bronze-Social.gif" width="200px" height="200px"></p>
-							</div>
-              <div style="display: inline-block; margin-right: 20px">
-								<h3>Bronze Social Award</h3>
-								<p><img src="/static/images/Bronze-Social.gif" width="200px" height="200px"></p>
-							</div>
-              <div style="display: inline-block; margin-right: 20px">
-								<h3>Bronze Social Award</h3>
-								<p><img src="/static/images/Bronze-Social.gif" width="200px" height="200px"></p>
-							</div>
-
+              {% endfor %}
 						</div>
 
 					</div>
