@@ -35,28 +35,43 @@
 
   <style>
   * { font-family: 'Karla', sans-serif !important; }
+
+  progress[value] {
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+  }
+
+  progress[value]::-webkit-progress-bar {
+      background-color: rgb(255, 255, 255);
+  }
+
+  progress[value]::-moz-progress-bar {
+      background-color: rgb(255, 255, 255);
+  }
+
     progress.bronze[value]::-moz-progress-bar {
-        background-color: #cd7f32 !important;
+        background-color: #cd7f32;
     }
 
     progress.bronze[value]::-webkit-progress-value {
-        background-color: #cd7f32 !important;
+        background-color: #cd7f32;
     }
 
     progress.silver[value]::-moz-progress-bar {
-        background-color: #C0C0C0 !important;
+        background-color: #C0C0C0;
     }
 
     progress.silver[value]::-webkit-progress-value {
-        background-color: #C0C0C0 !important;
+        background-color: #C0C0C0;
     }
 
     progress.gold[value]::-moz-progress-bar {
-        background-color: #FFD700 !important;
+        background-color: #FFD700;
     }
 
     progress.gold[value]::-webkit-progress-value {
-        background-color: #FFD700 !important;
+        background-color: #FFD700;
     }
   </style>
 
